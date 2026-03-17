@@ -448,26 +448,27 @@ def render_stat_card(label: str, value: str) -> None:
 
 
 def render_assistant(summary: str, suggestions: list[dict]) -> None:
-    html = [
-        '<div class="assistant-card">',
-        '<div class="section-kicker">Shopping assistant</div>',
-        '<div class="assistant-heading">Deal guidance</div>',
-        f'<div class="assistant-copy">{escape(summary)}</div>',
-    ]
+    render_html_block(
+        f"""
+        <div class="assistant-card">
+            <div class="section-kicker">Shopping assistant</div>
+            <div class="assistant-heading">Deal guidance</div>
+            <div class="assistant-copy">{escape(summary)}</div>
+        </div>
+        """
+    )
 
     for item in suggestions:
-        html.append(
-            f"""
-            <div class="assistant-suggestion">
-                <div class="assistant-name">{escape(item["product"])}</div>
-                <div class="assistant-meta">{escape(format_currency(item["return_price"]))} | {item["discount"]}% off</div>
-                <div class="assistant-reason">{escape(item["reason"])}</div>
-            </div>
-            """
-        )
-
-    html.append("</div>")
-    render_html_block("".join(html))
+        with st.container():
+            render_html_block(
+                f"""
+                <div class="assistant-suggestion">
+                    <div class="assistant-name">{escape(item["product"])}</div>
+                    <div class="assistant-meta">{escape(format_currency(item["return_price"]))} | {item["discount"]}% off</div>
+                    <div class="assistant-reason">{escape(item["reason"])}</div>
+                </div>
+                """
+            )
 
 
 def render_product_card(item: dict, discount: int, savings: str) -> None:
