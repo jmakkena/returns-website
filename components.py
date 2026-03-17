@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from html import escape
+
 import streamlit as st
 
 from helpers import format_currency
@@ -422,9 +424,9 @@ def render_section_intro(kicker: str, title: str, copy: str) -> None:
     st.markdown(
         f"""
         <div class="glass-card">
-            <div class="section-kicker">{kicker}</div>
-            <div class="section-title">{title}</div>
-            <div class="section-copy">{copy}</div>
+            <div class="section-kicker">{escape(kicker)}</div>
+            <div class="section-title">{escape(title)}</div>
+            <div class="section-copy">{escape(copy)}</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -435,8 +437,8 @@ def render_stat_card(label: str, value: str) -> None:
     st.markdown(
         f"""
         <div class="stat-card">
-            <div class="stat-label">{label}</div>
-            <div class="stat-value">{value}</div>
+            <div class="stat-label">{escape(label)}</div>
+            <div class="stat-value">{escape(value)}</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -448,16 +450,16 @@ def render_assistant(summary: str, suggestions: list[dict]) -> None:
         '<div class="assistant-card">',
         '<div class="section-kicker">Shopping assistant</div>',
         '<div class="assistant-heading">Deal guidance</div>',
-        f'<div class="assistant-copy">{summary}</div>',
+        f'<div class="assistant-copy">{escape(summary)}</div>',
     ]
 
     for item in suggestions:
         html.append(
             f"""
             <div class="assistant-suggestion">
-                <div class="assistant-name">{item["product"]}</div>
-                <div class="assistant-meta">{format_currency(item["return_price"])} | {item["discount"]}% off</div>
-                <div class="assistant-reason">{item["reason"]}</div>
+                <div class="assistant-name">{escape(item["product"])}</div>
+                <div class="assistant-meta">{escape(format_currency(item["return_price"]))} | {item["discount"]}% off</div>
+                <div class="assistant-reason">{escape(item["reason"])}</div>
             </div>
             """
         )
@@ -474,19 +476,19 @@ def render_product_card(item: dict, discount: int, savings: str) -> None:
     )
 
     fast_track = '<span class="track-pill">Fast-track return</span>' if item["fast_track"] else ""
-    tags = "".join([f'<span class="tag-pill">{tag}</span>' for tag in item["tags"]])
+    tags = "".join([f'<span class="tag-pill">{escape(tag)}</span>' for tag in item["tags"]])
 
     st.markdown(
         f"""
         <div class="product-card">
             <div class="product-hero" style="background: {gradient};">
-                <span class="category-pill">{item["category"]}</span>{fast_track}
-                <div class="product-brand">{item["brand"]}</div>
-                <div class="product-name">{item["product"]}</div>
+                <span class="category-pill">{escape(item["category"])}</span>{fast_track}
+                <div class="product-brand">{escape(item["brand"])}</div>
+                <div class="product-name">{escape(item["product"])}</div>
             </div>
             <div class="product-body">
                 <span class="condition-pill" style="background: {badge_bg}; color: {badge_fg};">
-                    {item["condition"]}
+                    {escape(item["condition"])}
                 </span>
                 <div class="price-row">
                     <div>
@@ -500,9 +502,9 @@ def render_product_card(item: dict, discount: int, savings: str) -> None:
                         <div class="savings">Save {savings} ({discount}%)</div>
                     </div>
                 </div>
-                <div class="note-box">{item["note"]}</div>
+                <div class="note-box">{escape(item["note"])}</div>
                 <div class="meta-row">
-                    <span class="meta-pill">{item["location"]}</span>
+                    <span class="meta-pill">{escape(item["location"])}</span>
                     <span class="meta-pill">{item["inventory_count"]} inspected units</span>
                     <span class="meta-pill">Rating {item["rating"]}</span>
                 </div>
