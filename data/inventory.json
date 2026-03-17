@@ -12,7 +12,7 @@
     "location": "Dallas Returns Hub",
     "fast_track": true,
     "note": "Packaging opened, product appears unused.",
-    "tags": ["audio", "travel", "noise cancelling"]
+    "tags": ["audio", "headphones", "travel", "tech", "noise cancelling"]
   },
   {
     "id": 2,
@@ -27,7 +27,7 @@
     "location": "Phoenix Returns Hub",
     "fast_track": true,
     "note": "Inspected, reset, and resealed with accessories.",
-    "tags": ["headphones", "premium", "commute"]
+    "tags": ["headphones", "audio", "travel", "tech", "premium", "commute"]
   },
   {
     "id": 3,
@@ -72,7 +72,7 @@
     "location": "Chicago Returns Hub",
     "fast_track": true,
     "note": "Customer return, reimaged and diagnostics passed.",
-    "tags": ["laptop", "productivity", "travel"]
+    "tags": ["laptop", "productivity", "travel", "tech", "home", "office"]
   },
   {
     "id": 6,
@@ -87,7 +87,7 @@
     "location": "Kansas City Returns Hub",
     "fast_track": true,
     "note": "Minor cosmetic marks on stand, screen tested clean.",
-    "tags": ["monitor", "desk setup", "productivity"]
+    "tags": ["monitor", "desk setup", "productivity", "home", "office", "tech"]
   },
   {
     "id": 7,
@@ -102,7 +102,7 @@
     "location": "Houston Returns Hub",
     "fast_track": true,
     "note": "Returned after sizing issue, device appears unused.",
-    "tags": ["fitness", "apple", "gift"]
+    "tags": ["fitness", "apple", "travel", "tech", "gift"]
   },
   {
     "id": 8,
@@ -117,7 +117,7 @@
     "location": "Denver Returns Hub",
     "fast_track": false,
     "note": "Looks unused, packaging resealed after inspection.",
-    "tags": ["mouse", "office", "creator"]
+    "tags": ["mouse", "office", "home", "creator", "tech"]
   },
   {
     "id": 9,
@@ -147,7 +147,7 @@
     "location": "Austin Returns Hub",
     "fast_track": true,
     "note": "Packaging torn but item is fully sealed and verified.",
-    "tags": ["audio", "budget", "gym"]
+    "tags": ["audio", "headphones", "travel", "tech", "budget", "gym"]
   },
   {
     "id": 11,
@@ -162,7 +162,7 @@
     "location": "Nashville Returns Hub",
     "fast_track": true,
     "note": "Opened, inspected, and all charging surfaces tested.",
-    "tags": ["charger", "travel", "apple"]
+    "tags": ["charger", "travel", "tech", "apple"]
   },
   {
     "id": 12,
@@ -177,6 +177,6 @@
     "location": "Seattle Returns Hub",
     "fast_track": false,
     "note": "Screen and battery health checked, appears untouched.",
-    "tags": ["reading", "gift", "travel"]
+    "tags": ["reading", "gift", "travel", "tech"]
   }
 ]
