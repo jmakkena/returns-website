@@ -23,8 +23,15 @@ CATEGORY_GRADIENTS = {
 }
 
 
+def render_html_block(markup: str) -> None:
+    if hasattr(st, "html"):
+        st.html(markup)
+    else:
+        st.markdown(markup, unsafe_allow_html=True)
+
+
 def inject_styles() -> None:
-    st.markdown(
+    render_html_block(
         """
         <style>
         .stApp {
@@ -370,13 +377,12 @@ def inject_styles() -> None:
             }
         }
         </style>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
 
 def render_hero() -> None:
-    st.markdown(
+    render_html_block(
         """
         <div class="hero-card">
             <div class="eyebrow">Amazon-style returns marketplace MVP</div>
@@ -391,13 +397,12 @@ def render_hero() -> None:
                 <span class="hero-chip">Match by budget</span>
             </div>
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
 
 def render_snapshot_card(total_items: int, category_count: int) -> None:
-    st.markdown(
+    render_html_block(
         f"""
         <div class="snapshot-card">
             <div class="snapshot-kicker">Marketplace snapshot</div>
@@ -415,33 +420,30 @@ def render_snapshot_card(total_items: int, category_count: int) -> None:
                 <div class="snapshot-stat-value">Value-first resale</div>
             </div>
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
 
 def render_section_intro(kicker: str, title: str, copy: str) -> None:
-    st.markdown(
+    render_html_block(
         f"""
         <div class="glass-card">
             <div class="section-kicker">{escape(kicker)}</div>
             <div class="section-title">{escape(title)}</div>
             <div class="section-copy">{escape(copy)}</div>
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
 
 def render_stat_card(label: str, value: str) -> None:
-    st.markdown(
+    render_html_block(
         f"""
         <div class="stat-card">
             <div class="stat-label">{escape(label)}</div>
             <div class="stat-value">{escape(value)}</div>
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
 
@@ -465,7 +467,7 @@ def render_assistant(summary: str, suggestions: list[dict]) -> None:
         )
 
     html.append("</div>")
-    st.markdown("".join(html), unsafe_allow_html=True)
+    render_html_block("".join(html))
 
 
 def render_product_card(item: dict, discount: int, savings: str) -> None:
@@ -478,7 +480,7 @@ def render_product_card(item: dict, discount: int, savings: str) -> None:
     fast_track = '<span class="track-pill">Fast-track return</span>' if item["fast_track"] else ""
     tags = "".join([f'<span class="tag-pill">{escape(tag)}</span>' for tag in item["tags"]])
 
-    st.markdown(
+    render_html_block(
         f"""
         <div class="product-card">
             <div class="product-hero" style="background: {gradient};">
@@ -511,6 +513,5 @@ def render_product_card(item: dict, discount: int, savings: str) -> None:
                 <div class="tag-row">{tags}</div>
             </div>
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
     )
