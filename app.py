@@ -2,7 +2,15 @@ from __future__ import annotations
 
 import streamlit as st
 
-from components import inject_styles, render_assistant, render_product_card, render_stat_card
+from components import (
+    inject_styles,
+    render_assistant,
+    render_hero,
+    render_product_card,
+    render_section_intro,
+    render_snapshot_card,
+    render_stat_card,
+)
 from helpers import (
     assistant_summary,
     assistant_suggestions,
@@ -16,7 +24,7 @@ from helpers import (
 
 st.set_page_config(
     page_title="Returns Marketplace MVP",
-    page_icon="📦",
+    page_icon="package",
     layout="wide",
 )
 
@@ -30,24 +38,21 @@ budget_options = ["Any budget", "100", "200", "350", "500", "1000"]
 if "query" not in st.session_state:
     st.session_state.query = "headphones under $200"
 
+hero_left, hero_right = st.columns([1.55, 0.85], gap="large")
 
-st.markdown(
-    """
-    <div class="hero-card">
-        <div class="eyebrow">Amazon-style returns marketplace MVP</div>
-        <div class="hero-title">Recover more value from returns with guided deal discovery.</div>
-        <div class="hero-copy">
-            Browse inspected return inventory, surface the highest-value resale opportunities,
-            and let a shopping assistant highlight the best matches by budget, condition, and category.
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+with hero_left:
+    render_hero()
+with hero_right:
+    render_snapshot_card(total_items=len(inventory), category_count=len(categories) - 1)
 
-left, right = st.columns([1.6, 1.0], gap="large")
+left, right = st.columns([1.45, 0.55], gap="large")
 
 with left:
+    render_section_intro(
+        kicker="Search inventory",
+        title="Guide the shopper toward the best return deal",
+        copy="Use natural-language queries, then narrow the catalog by category, condition, and budget.",
+    )
     query = st.text_input(
         "Search return deals",
         value=st.session_state.query,
@@ -55,14 +60,40 @@ with left:
         label_visibility="collapsed",
     )
     st.session_state.query = query
-    st.caption("Popular searches: headphones under $200, travel tech, home office, kitchen, apple")
+    quick_pick_col1, quick_pick_col2, quick_pick_col3, quick_pick_col4 = st.columns(4)
+    with quick_pick_col1:
+        if st.button("Headphones", use_container_width=True):
+            st.session_state.query = "headphones under $200"
+            st.rerun()
+    with quick_pick_col2:
+        if st.button("Travel tech", use_container_width=True):
+            st.session_state.query = "travel tech"
+            st.rerun()
+    with quick_pick_col3:
+        if st.button("Home office", use_container_width=True):
+            st.session_state.query = "home office"
+            st.rerun()
+    with quick_pick_col4:
+        if st.button("Kitchen", use_container_width=True):
+            st.session_state.query = "kitchen"
+            st.rerun()
 
 with right:
+    render_section_intro(
+        kicker="Quick actions",
+        title="Keep the demo moving",
+        copy="Reset the search state any time or use the quick picks to jump into a clean scenario for a live walkthrough.",
+    )
     if st.button("Reset filters", use_container_width=True):
         st.session_state.query = ""
         st.rerun()
 
 
+render_section_intro(
+    kicker="Filter inventory",
+    title="Search by fit, condition, and budget",
+    copy="Budget phrases typed into search also work automatically, so queries like under $200 narrow the list even before filters are applied.",
+)
 filter_col1, filter_col2, filter_col3 = st.columns(3)
 with filter_col1:
     selected_category = st.selectbox("Category", categories)
@@ -100,16 +131,10 @@ with assistant_col:
     render_assistant(assistant_summary(st.session_state.query, filtered_items), suggestions)
 
 with content_col:
-    st.markdown(
-        """
-        <div class="panel-card">
-            <div class="panel-heading">Filtered inventory</div>
-            <div class="assistant-copy">
-                Use the search bar, category, condition, and budget filters to surface the best return deals.
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
+    render_section_intro(
+        kicker="Filtered inventory",
+        title="Production-style return listings",
+        copy="Each listing surfaces discount, condition confidence, inventory count, and location so the marketplace feels curated instead of raw.",
     )
     st.write("")
 
